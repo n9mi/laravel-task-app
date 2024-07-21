@@ -14,6 +14,16 @@ class TaskRepository {
 
     public function findAll()
     {
-        return $this->task->paginate(10);
+        return $this->task::latest('updated_at')->paginate(10);
+    }
+
+    public function findById(string $id)
+    {
+        return $this->task::findOrFail($id);
+    }
+
+    public function update(string $id, array $data)
+    {
+        $this->findById($id)->update($data);
     }
 }
