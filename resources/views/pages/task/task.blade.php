@@ -147,7 +147,7 @@
             <div class="modal-dialog"
                 role="document">
                 <div class="modal-content">
-                    <form action="{{ route('task.update', $task->id) }}" method="POST">
+                    <form action="{{ route('task.create') }}" method="POST">
                         @csrf
 
                         <div class="modal-header">
@@ -208,9 +208,9 @@
     @if ($message = session('swal_success'))
         <script>
             swal({
-                title: "Success!",
-                text: "Task successfully updated",
-                icon: "success"
+                title: 'Success!',
+                text: 'Task successfully updated',
+                icon: 'success'
             });
         </script>
     @endif
@@ -227,10 +227,22 @@
                     if (willDelete) {
                         $(`#form-submit-delete-${formId}`).submit();
                     } else {
-                        swal('Task is not deleted');
+                        swal({
+                            title: 'Task is not deleted',
+                            icon: 'info'
+                        });
                     }
-                    console.log('as0');
                 });
         }
     </script>
+
+    @if ($errors->any())
+        <script>
+            swal({
+                title: 'Error!',
+                text: '{{ $errors->first() }}',
+                icon: 'error'
+            });
+        </script>
+    @endif
 @endpush

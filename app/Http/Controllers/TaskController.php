@@ -26,9 +26,30 @@ class TaskController extends Controller
         ]);
     }
 
+    public function create(Request $request)
+    {
+       $errors = $this->taskService->create($request);
+
+       if ($errors != null) {
+            return redirect()
+                ->back()
+                ->withErrors($errors);
+       }
+
+       return redirect()
+            ->route('task.getAll')
+            ->with('swal_success', 'Task successfully created');
+    }
+
     public function update(Request $request, string $id)
     {
-       $this->taskService->update($request, $id);
+        $errors = $this->taskService->update($request, $id);
+
+        if ($errors != null) {
+            return redirect()
+                ->back()
+                ->withErrors($errors);
+        }
 
        return redirect()
             ->route('task.getAll')
