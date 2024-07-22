@@ -14,10 +14,18 @@
             </div>
             <div class="section-body">
                 <div class="card">
-                    <div class="card-header">
-                        <h4>List of tasks</h4>
-                    </div>
                     <div class="card-body">
+                        <div class="row my-3">
+                            <div class="col-9">
+                                <h5 class="text-primary">List of tasks</h5>
+                            </div>
+                            <div class="col">
+                                <button class="btn btn-primary float-right"
+                                    data-toggle="modal"
+                                    data-target="#create-task-modal">
+                                        Add task <i class="fas fa-circle-plus"></i></button>
+                            </div>
+                        </div>
                         <table class="table-hover table">
                             <thead>
                                 <tr>
@@ -131,6 +139,64 @@
                 </div>
             </div>
         @endforeach
+
+        <div class="modal fade"
+            tabindex="-1"
+            role="dialog"
+            id="create-task-modal">
+            <div class="modal-dialog"
+                role="document">
+                <div class="modal-content">
+                    <form action="{{ route('task.update', $task->id) }}" method="POST">
+                        @csrf
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add task</h5>
+                            <button type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text"
+                                    class="form-control"
+                                    name="title">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control"
+                                    data-height="150"
+                                    name="description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                        type="checkbox"
+                                        name="is_done"
+                                        id="is-done-create">
+                                    <label class="form-check-label"
+                                        for="is-done-create">
+                                        Already done
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer bg-whitesmoke br">
+                            <button type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                            <button class="btn btn-primary"
+                                type="submit">
+                                Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
