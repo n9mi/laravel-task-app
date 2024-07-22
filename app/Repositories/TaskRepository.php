@@ -26,4 +26,9 @@ class TaskRepository {
     {
         $this->findById($id)->update($data);
     }
+
+    public function delete(string $id)
+    {
+        $this->findById($id)->delete();
+    }
 }

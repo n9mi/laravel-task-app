@@ -34,4 +34,13 @@ class TaskController extends Controller
             ->route('task.getAll')
             ->with('swal_success', 'Task successfully updated');
     }
+
+    public function delete(string $id)
+    {
+        $this->taskService->delete($id);
+
+        return redirect()
+            ->route('task.getAll')
+            ->with('swal_success', 'Task successfully deleted');
+    }
 }

@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 Route::get('/tasks', [TaskController::class, 'findAll'])->name('task.getAll');
 Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('task.update');
+Route::delete('/tasks/{id}', [TaskController::class, 'delete'])->name('task.delete');

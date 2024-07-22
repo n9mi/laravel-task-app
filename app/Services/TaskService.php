@@ -36,4 +36,9 @@ class TaskService {
                 'is_done' => $request->is_done === 'on',
             ]);
     }
+
+    public function delete(string $id)
+    {
+        $this->taskRepository->delete($id);
+    }
 }

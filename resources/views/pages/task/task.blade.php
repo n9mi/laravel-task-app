@@ -42,9 +42,21 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-primary"
+                                            <button class="btn btn-primary btn-sm"
                                                 data-toggle="modal"
-                                                data-target="#modal-task-{{ $tasks->firstItem() + $loop->index }}">Edit</button>
+                                                data-target="#modal-task-{{ $tasks->firstItem() + $loop->index }}">
+                                                <i class="fas fa-pen-to-square"></i></button>
+                                            <button class="btn btn-danger btn-sm"
+                                                type="button"
+                                                onclick="deleteTask({{ $tasks->firstItem() + $loop->index }})">
+                                                <i class="fas fa-trash"></i></button>
+
+                                            <form action="{{ route('task.delete', $task->id) }}"
+                                                method="POST"
+                                                id="form-submit-delete-{{ $tasks->firstItem() + $loop->index }}">
+                                                @csrf
+                                                @method("DELETE")
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,7 +112,7 @@
                                             name="is_done"
                                             {{ $task->is_done ? "checked" : "" }}>
                                         <label class="form-check-label"
-                                            for="defaultCheck1">
+                                            for="is-done-{{ $tasks->firstItem() + $loop->index }}">
                                             Already done
                                         </label>
                                     </div>
@@ -136,4 +148,23 @@
             });
         </script>
     @endif
+
+    <script>
+        function deleteTask(formId) {
+            swal({
+                    title: 'Are you sure?',
+                    text: 'Are you sure to delete this task?',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $(`#form-submit-delete-${formId}`).submit();
+                    } else {
+                        swal('Task is not deleted');
+                    }
+                    console.log('as0');
+                });
+        }
+    </script>
 @endpush
